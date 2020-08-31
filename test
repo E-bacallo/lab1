@@ -1,5 +1,7 @@
+# edgar bacallo
+#
 What does this statement mean?
 
 git push origin master
 
-
+Changes from all local branches to matching bratches the origin remote.
