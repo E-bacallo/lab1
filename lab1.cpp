@@ -35,60 +35,59 @@ bool multi_checker(string word){
 }
 
 
-int main() {
+int main(int argc, char *argv[]) {
 
     string word;
-    string test = "test";
     ifstream testfile;
-    bool dubs = 0;
-    bool trips = 0;
-    bool testloop;
-    while (dubs == 0 || trips == 1) {
-        cout <<"Please enter a word. To check if it has double letters. Or enter 'test' to test operation." << endl;
-        cin >> word;
-        if (word == test){
-            testfile.open("test.txt");
-            while (!testfile.eof()){
-                testloop = 0;
-                trips = 0;
-                getline(testfile,word);
-                testloop = word_checker(word);
-                
-                if (testfile.eof()){
-                break;
-                }
+    bool trips = 0; 
 
-                if (testloop == 1){
-                    trips = multi_checker(word);
-                    if(trips == 1){ 
-                        cout << " That word ("<< word << ") has more than double letters." << endl;
-                    }
-                    else{
-                        cout << " That word (" << word << ") has double letters!" << endl;
-                    }
-                }
-                else{
-                    cout << " That word (" << word << ") does not have double letters." << endl;
-                }
+#ifdef UNIT_TEST
+    bool testloop; 
+    cout << "This is a test!! \n" << endl;
+    testfile.open("test.txt");
+    while (!testfile.eof()){
+        testloop = 0;
+        trips = 0;
+        getline(testfile,word);
+        testloop = word_checker(word);
+        if (testfile.eof()){
+        break;
+        }
+        if (testloop == 1){
+            trips = multi_checker(word);
+            if(trips == 1){ 
+            cout << " That word ("<< word << ") has more than double letters." << endl;
             }
-                        
-            break;
-            return 0;
-        }     
-            dubs = word_checker(word);
-            if (dubs == 0) {
-            cout << word << " does not have double letters." << endl;
+                else{
+                cout << " That word (" << word << ") has double letters!" << endl;
+                }
             }
             else{
+            cout << " That word (" << word << ") does not have double letters." << endl;
+            }
+        }
+       
+    return 0;
+        
+#endif  
+
+    bool dubs = 0; 
+    while (dubs == 0 || trips == 1) {
+        cout <<"Please enter a word. To check if it has double letters." << endl;
+        cin >> word;
+        dubs = word_checker(word);
+        if (dubs == 0) {
+            cout << word << " does not have double letters." << endl;
+            }
+        else{
             trips = multi_checker(word);
             if(trips == 1){
-            cout << word <<" has triple letters. Please enter a different word." << endl;
+                cout << word <<" has triple letters. Please enter a different word." << endl;
             }
             else{
             cout << "That word ( " << word << " ) has double letters!" << endl;
             }
-       }
-
+        }
     }
-            return 0;
+    return 0;
 }
